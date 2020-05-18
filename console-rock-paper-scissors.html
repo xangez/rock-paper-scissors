@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Console paper-scissors-rock</title>
+  </head>
+  <body>
+    <script>
+
+      let playerScore = 0;
+      let computerScore = 0;
+     
+    //variation that plays exact number of rounds 
+      function game(){
+        numberOfrounds = prompt("How many Rounds?");
+        for (let i = 1; i <= numberOfrounds; i++ ){
+          console.log(playRound());
+          if (playerScore > computerScore && i == numberOfrounds){
+            console.log("You win the game!!!");
+          } 
+          else if (playerScore < computerScore && i == numberOfrounds){
+            console.log("Computer wins the game :((");
+          } 
+          else if (playerScore == computerScore && i == numberOfrounds){
+            console.log("Draw ~~")
+          }
+        }
+      }
+
+   /*
+  
+      //rockpaperscissors variation - winner is first to (numberofrounds)
+      function game(){
+        numberOfRounds = prompt("How many rounds?")
+        while (playerScore <= numberOfRounds || computerScore <= numberOfRounds){
+            console.log(playRound());
+        
+          if (playerScore == numberOfRounds){
+            console.log("You win the game!!!");
+            break;
+          } 
+          else if (computerScore == numberOfRounds) {
+            console.log("Computer wins the game :((") ;
+            break;
+          } 
+        }
+
+      }
+      */
+
+      function computerPlay(){
+        let options = ['rock', 'paper', 'scissors'];
+        return options[Math.floor(Math.random() * options.length)];
+      }
+
+      function playRound() {
+        let computerSelection = computerPlay();
+        let playerSelection = prompt("Rock, paper or scissors?").toLowerCase();
+        if (playerSelection == computerSelection){
+          return "You both chose " + playerSelection + ". Draw! Your score: " + playerScore + " Computer: " + computerScore;
+        }
+        else if (playerSelection == "rock" && computerSelection == "paper" 
+          || playerSelection == "paper" && computerSelection == "scissors"
+          || playerSelection == "scissors" && computerSelection == "rock"){
+            computerScore ++;
+            return computerSelection + " beats " + playerSelection + " :( Your score: " + playerScore + " Computer: " + computerScore;
+        }
+        else {
+          playerScore ++;
+          return playerSelection + " beats " + computerSelection + " :) Your score: " + playerScore + " Computer: " + computerScore;
+        }
+    
+      }
+
+      game();
+    </script>
+
+  </body>
+
+</html>

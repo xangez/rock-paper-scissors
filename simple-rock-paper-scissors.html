@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock-paper-scissors</title>
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    
+    <div>
+      <div>Player Score: <span id="player-score"></span></div>
+      <div>Computer Score: <span id="computer-score"></span></div>
+      <div>Game: <span id="current-game"></span></div>
+      <div><span id="final-winner"></span></div>
+    </div>
+
+
+    <script>
+
+      let playerScore = 0;
+      let computerScore = 0;
+
+      const player = document.querySelector('#player-score');
+      const computer = document.querySelector('#computer-score');
+      const currentGame = document.querySelector('#current-game');
+      const finalWinner = document.querySelector('#final-winner');
+
+
+      function computerPlay(){
+          let options = ['rock', 'paper', 'scissors'];
+          return options[Math.floor(Math.random() * options.length)];
+      }
+
+      function playRound(e) {
+        if (playerScore==5 || computerScore==5){ 
+          resetGame();
+        }
+        let playerSelection = e.target.id;
+        let computerSelection = computerPlay();
+        if (playerSelection == computerSelection){
+          player.textContent = playerScore;
+          computer.textContent = computerScore;
+          currentGame.textContent = "You both chose " + playerSelection + ". Draw!";
+        }
+        else if (playerSelection == "rock" && computerSelection == "paper" 
+          || playerSelection == "paper" && computerSelection == "scissors"
+          || playerSelection == "scissors" && computerSelection == "rock"){
+            computerScore ++;
+            player.textContent = playerScore;
+            computer.textContent = computerScore;
+            currentGame.textContent = computerSelection + " beats " + playerSelection + " :(";
+            if (computerScore == 5){
+              finalWinner.textContent = "Computer Wins the Game :(("
+            }
+        }
+        else {
+          playerScore ++;
+          player.textContent = playerScore;
+          computer.textContent = computerScore;
+          currentGame.textContent = playerSelection + " beats " + computerSelection + " :)";
+          if (playerScore == 5){
+              finalWinner.textContent = "You Win the Game :))"
+            }
+        }
+    
+      }
+
+      function resetGame(){
+        playerScore = 0;
+        computerScore = 0;
+        player.textContent = '';
+        computer.textContent = '';
+        finalWinner.textContent = '';
+      }
+
+
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach((button) => {button.addEventListener('click', playRound)});
+
+      /*
+      rock.addEventListener('click', playRound);
+      paper.addEventListener('click', playRound);
+      scissors.addEventListener('click', playRound);
+      */
+                      
+            
+    </script>
+  </body>
+
+</html>
